@@ -61,7 +61,7 @@ var arrQuestions = [
         "reponse2": "Une vitre",
         "reponse3": "Un ordi",
         "reponse4": "Une tasse",
-        "bonnereponse": "reponse2"
+        "bonnereponse": "reponse4"
     },
     {
         "intitule": "Question 8",
@@ -79,7 +79,7 @@ var arrQuestions = [
         "reponse2": "entre 10.000 et 15 000",
         "reponse3": "entre 100.000 et 150 000",
         "reponse4": "4,2 millions",
-        "bonnereponse": "reponse4"
+        "bonnereponse": "reponse3"
     },
     {
         "intitule": "Question 10",
@@ -88,11 +88,12 @@ var arrQuestions = [
         "reponse2": "0",
         "reponse3": "captcha reussi",
         "reponse4": "4,2 millions",
-        "bonnereponse": "reponse3"
+        "bonnereponse": "reponse2"
     }
 ];
 
-
+var compteurBon = 0;
+var compteurpasbon = 0;
 
 $("#questions").html(arrQuestions[0].intitule + " " + arrQuestions[0].question);
 
@@ -102,15 +103,12 @@ $("#reponse3").html(arrQuestions[0].reponse3);
 $("#reponse4").html(arrQuestions[0].reponse4);
 
 
-
-
 var index = 0;
 
 $("#reponse1, #reponse2, #reponse3, #reponse4").on("click", function () {
 
 
     //for (var i = 0; i < arrQuestions.length; i++) {
-
 
        // if (index == i) {
 
@@ -121,11 +119,21 @@ $("#reponse1, #reponse2, #reponse3, #reponse4").on("click", function () {
 
             if (this.id == arrQuestions[index].bonnereponse) {
 
+                compteurBon++;
                 alert("bonne reponse !");
+                console.log("compteurBon" + compteurBon);
+            }
+
+            else {
+
+                compteurpasbon++;
+                alert("mauvaise réponse !");
+                console.log("compteurpasbon" + compteurpasbon);
 
             }
 
             // Passage a la question suivante
+
             index++;
 
             $("#questions").html(arrQuestions[index].intitule + " " + arrQuestions[index].question);
@@ -143,7 +151,16 @@ $("#reponse1, #reponse2, #reponse3, #reponse4").on("click", function () {
 
 });
 
-console.log($("#reponse2").text());
+
+
+
+
+
+
+
+
+
+
 
 
 
