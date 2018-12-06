@@ -6,7 +6,8 @@ var arrQuestions = [
         "reponse2": "pikachu",
         "reponse3": "Dracaufeu",
         "reponse4": "Chépo",
-        "bonnereponse": "reponse2"
+        "bonnereponse": "reponse2",
+        "contenusolution": "pikachu"
 
     },
     {
@@ -16,7 +17,8 @@ var arrQuestions = [
         "reponse2": "Uptofourmies",
         "reponse3": "Simon academy",
         "reponse4": "Les bidasses en vadrouille",
-        "bonnereponse": "reponse2"
+        "bonnereponse": "reponse2",
+        "contenusolution": "Uptofourmies"
     },
     {
         "intitule": "Question 3",
@@ -25,16 +27,18 @@ var arrQuestions = [
         "reponse2": "Pierre",
         "reponse3": "Cyriak",
         "reponse4": "Baboulinet",
-        "bonnereponse": "reponse2"
+        "bonnereponse": "reponse2",
+        "contenusolution": "Pierre"
     },
     {
         "intitule": "Question 4",
         "question": "Combien as tu de doigts ?",
         "reponse1": "deux",
         "reponse2": "trois",
-        "reponse3": "cing",
+        "reponse3": "cinq",
         "reponse4": "avec les orteils aussi ? 42",
-        "bonnereponse": "reponse3"
+        "bonnereponse": "reponse3",
+        "contenusolution": "cinq"
     },
     {
         "intitule": "Question 5",
@@ -43,7 +47,8 @@ var arrQuestions = [
         "reponse2": "Venus",
         "reponse3": "Bisounours",
         "reponse4": "Planète a sec",
-        "bonnereponse": "reponse1"
+        "bonnereponse": "reponse1",
+        "contenusolution": "la terre"
     },
     {
         "intitule": "Question 6",
@@ -52,7 +57,8 @@ var arrQuestions = [
         "reponse2": "2019",
         "reponse3": "1977",
         "reponse4": "50 av. JC",
-        "bonnereponse": "reponse2"
+        "bonnereponse": "reponse2",
+        "contenusolution": "2019"
     },
     {
         "intitule": "Question 7",
@@ -61,7 +67,9 @@ var arrQuestions = [
         "reponse2": "Une vitre",
         "reponse3": "Un ordi",
         "reponse4": "Une tasse",
-        "bonnereponse": "reponse4"
+        "bonnereponse": "reponse4",
+        "contenusolution": "Une tasse"
+
     },
     {
         "intitule": "Question 8",
@@ -70,7 +78,8 @@ var arrQuestions = [
         "reponse2": "10.000",
         "reponse3": "100.000",
         "reponse4": "4,2 millions",
-        "bonnereponse": "reponse4"
+        "bonnereponse": "reponse4",
+        "contenusolution": "4,2 millions"
     },
     {
         "intitule": "Question 9",
@@ -79,7 +88,8 @@ var arrQuestions = [
         "reponse2": "entre 10.000 et 15 000",
         "reponse3": "entre 100.000 et 150 000",
         "reponse4": "4,2 millions",
-        "bonnereponse": "reponse3"
+        "bonnereponse": "reponse3",
+        "contenusolution": "entre 100.00 et 150.000"
     },
     {
         "intitule": "Question 10",
@@ -88,12 +98,22 @@ var arrQuestions = [
         "reponse2": "0",
         "reponse3": "captcha reussi",
         "reponse4": "4,2 millions",
-        "bonnereponse": "reponse2"
+        "bonnereponse": "reponse2",
+        "contenusolution": "0",
     }
 ];
 
+var failUser = [];
+var solutionFail = [];
+var reponseUser = [];
+
 var compteurBon = 0;
 var compteurpasbon = 0;
+var compteurReponse = 0;
+
+
+
+
 
 $("#questions").html(arrQuestions[0].intitule + " " + arrQuestions[0].question);
 
@@ -107,76 +127,64 @@ var index = 0;
 
 $("#reponse1, #reponse2, #reponse3, #reponse4").on("click", function () {
 
-
-    //for (var i = 0; i < arrQuestions.length; i++) {
-
-       // if (index == i) {
-
-            //i++;
-
-            //verification de la réponse
-            console.log(this.id);
-
-            if (this.id == arrQuestions[index].bonnereponse) {
-
-                compteurBon++;
-                alert("bonne reponse !");
-                console.log("compteurBon" + compteurBon);
-            }
-
-            else {
-
-                compteurpasbon++;
-                alert("mauvaise réponse !");
-                console.log("compteurpasbon" + compteurpasbon);
-
-            }
-
-            // Passage a la question suivante
-
-            index++;
-
-            $("#questions").html(arrQuestions[index].intitule + " " + arrQuestions[index].question);
-
-            $("#reponse1").html(arrQuestions[index].reponse1);
-            $("#reponse2").html(arrQuestions[index].reponse2);
-            $("#reponse3").html(arrQuestions[index].reponse3);
-            $("#reponse4").html(arrQuestions[index].reponse4);
+    compteurReponse++;
+    console.log("essais :" + compteurReponse);
 
 
-        //}
+    //verification de la réponse
+    console.log(this.id);
 
-    //}
+    if (this.id == arrQuestions[index].bonnereponse) {
+
+        compteurBon++;
+
+
+    }
+
+
+    if (compteurReponse == arrQuestions.length) {
+
+        document.getElementById("container_quiz").style.display = "none";
+        document.getElementById("container_scores").style.display = "block";
+        document.getElementById("score").innerHTML = "Vous avez un score de : " + compteurBon + " / 10";
+
+        for (var j = 0; j < failUser.length; j++) {
+
+            document.getElementById("explications_score").innerHTML += "A la question " + failUser[j] + " , vous avez répondu " +
+                reponseUser[j] + " , et la réponse était : " + solutionFail[j] + "<br><br>";
+
+        }
+
+    }
+
+    else {
+
+        compteurpasbon++;
+        failUser.push(arrQuestions[index].question);
+        solutionFail.push(arrQuestions[index].contenusolution);
+        reponseUser.push(this.innerHTML);
+
+        console.log(reponseUser);
+
+    }
+
+    // Passage a la question suivante
+
+    index++;
+
+    $("#questions").html(arrQuestions[index].intitule + " " + arrQuestions[index].question);
+
+    $("#reponse1").html(arrQuestions[index].reponse1);
+    $("#reponse2").html(arrQuestions[index].reponse2);
+    $("#reponse3").html(arrQuestions[index].reponse3);
+    $("#reponse4").html(arrQuestions[index].reponse4);
+
+    $("#reponses").slideUp(1);
+    $("#reponses").slideDown(2000);
+
 
 
 });
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*var $coucou = document.getElementById("coucou");
-
-$("#reponse1").hover(function () {
-
-    $("#bidon").focus();
-
-    console.log("#reponse1");
-});
-*/
