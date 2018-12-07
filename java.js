@@ -99,7 +99,7 @@ var arrQuestions = [
         "reponse3": "captcha reussi",
         "reponse4": "4,2 millions",
         "bonnereponse": "reponse2",
-        "contenusolution": "0",
+        "contenusolution": "0"
     }
 ];
 
@@ -130,6 +130,9 @@ $("#reponse1, #reponse2, #reponse3, #reponse4").on("click", function () {
     compteurReponse++;
     console.log("essais :" + compteurReponse);
 
+    failUser.push(arrQuestions[index].question);
+    solutionFail.push(arrQuestions[index].contenusolution);
+    reponseUser.push(this.innerHTML);
 
     //verification de la réponse
     console.log(this.id);
@@ -142,13 +145,13 @@ $("#reponse1, #reponse2, #reponse3, #reponse4").on("click", function () {
     }
 
 
-    if (compteurReponse == arrQuestions.length) {
+    if (compteurReponse == arrQuestions.length ) {
 
         document.getElementById("container_quiz").style.display = "none";
         document.getElementById("container_scores").style.display = "block";
         document.getElementById("score").innerHTML = "Vous avez un score de : " + compteurBon + " / 10";
 
-        for (var j = 0; j < failUser.length; j++) {
+        for (var j = 0; j < reponseUser.length; j++) {
 
             document.getElementById("explications_score").innerHTML += "A la question " + failUser[j] + " , vous avez répondu " +
                 reponseUser[j] + " , et la réponse était : " + solutionFail[j] + "<br><br>";
@@ -160,13 +163,12 @@ $("#reponse1, #reponse2, #reponse3, #reponse4").on("click", function () {
     else {
 
         compteurpasbon++;
-        failUser.push(arrQuestions[index].question);
-        solutionFail.push(arrQuestions[index].contenusolution);
-        reponseUser.push(this.innerHTML);
 
         console.log(reponseUser);
-
+        console.log(failUser);
+        console.log(compteurBon);
     }
+
 
     // Passage a la question suivante
 
@@ -181,7 +183,7 @@ $("#reponse1, #reponse2, #reponse3, #reponse4").on("click", function () {
 
     $("#reponses").slideUp(1);
     $("#reponses").slideDown(2000);
-
+    console.log(index);
 
 
 });
